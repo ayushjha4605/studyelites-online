@@ -63,7 +63,7 @@ src/
 ├── hooks/                    # React hooks
 public/
 ├── covers/                   # AI-generated product cover images
-└── demo-ssc-cgl.pdf          # Free SSC CGL demo PDF (13 pages)
+└── demo-*.pdf             # 7 free demo PDFs (one per product)
 prisma/
 └── schema.prisma
 ```

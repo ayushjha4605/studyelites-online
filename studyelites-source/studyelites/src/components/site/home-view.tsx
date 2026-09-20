@@ -170,7 +170,11 @@ export function HomeView({
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           {featured.map((p) => (
-            <ProductCard key={p.id} item={p} />
+            <ProductCard
+              key={p.id}
+              item={p}
+              onViewDetails={() => onNavigate("product-detail", p.id)}
+            />
           ))}
         </div>
 

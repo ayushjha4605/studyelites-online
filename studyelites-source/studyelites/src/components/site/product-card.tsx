@@ -14,33 +14,41 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import type { CatalogItemDisplay } from "@/lib/products";
-import { FileText, ExternalLink } from "lucide-react";
+import { FileText, ExternalLink, Eye } from "lucide-react";
 
 /**
  * Reusable product card. Renders the real product cover image and the
  * Buy Now / Join Now CTA. All pricing is server-authoritative — the price
  * shown here is for display only and is re-validated server-side at checkout.
+ *
+ * `onViewDetails` is invoked when the user clicks anywhere on the card
+ * (cover, title, "View details" button). The Buy Now button and Demo PDF link
+ * stop propagation so they don't trigger the detail navigation.
  */
 export function ProductCard({
   item,
   ctaLabel = "Buy Now",
   className,
+  onViewDetails,
 }: {
   item: CatalogItemDisplay;
   ctaLabel?: string;
   className?: string;
+  onViewDetails?: () => void;
 }) {
   return (
     <Card
       className={cn(
         "group flex flex-col overflow-hidden transition-shadow hover:shadow-md",
+        onViewDetails && "cursor-pointer",
         className
       )}
+      onClick={onViewDetails}
     >
-      {/* Cover image */}
+      {/* Cover image — object-contain so the WHOLE cover is visible (no cropping) */}
       <div
         className={cn(
-          "relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br",
+          "relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br p-3",
           item.accent
         )}
         role="img"
@@ -51,7 +59,7 @@ export function ProductCard({
           alt={`${item.name} cover`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-contain transition-transform duration-300 group-hover:scale-105"
           priority={false}
         />
         {item.isSample && (
@@ -117,27 +125,29 @@ export function ProductCard({
 
         {/* Demo PDF download */}
         {item.demoPdfUrl && (
-          <Button
-            asChild
-            variant="outline"
-            size="sm"
-            className="mt-3 w-full border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30"
-          >
-            <a
-              href={item.demoPdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              download
+          <div onClick={(e) => e.stopPropagation()}>
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="mt-3 w-full border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30"
             >
-              <FileText className="size-4" />
-              View free demo PDF
-              <ExternalLink className="size-3" />
-            </a>
-          </Button>
+              <a
+                href={item.demoPdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                <FileText className="size-4" />
+                View free demo PDF
+                <ExternalLink className="size-3" />
+              </a>
+            </Button>
+          </div>
         )}
       </CardContent>
 
-      <CardFooter className="pt-0">
+      <CardFooter className="pt-0" onClick={(e) => e.stopPropagation()}>
         <CheckoutButton
           itemId={item.id}
           label={ctaLabel}

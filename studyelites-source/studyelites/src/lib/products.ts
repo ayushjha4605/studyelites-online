@@ -38,7 +38,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     coverImage: "/covers/ssc.png",
     accent: "from-blue-500/15 to-blue-600/5",
     isSample: true,
-    demoPdfUrl: "/demo-ssc-cgl.pdf",
+    demoPdfUrl: "/demo-ssc.pdf",
     topics: [
       "Quantitative Aptitude (Number System, Percentage, Profit-Loss, SI/CI, Time-Speed-Distance)",
       "General Intelligence & Reasoning (Series, Analogy, Coding-Decoding, Blood Relations)",
@@ -57,6 +57,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     priceLabel: "₹49",
     priceNote: "Digital download (PDF, ~180 pages)",
     coverImage: "/covers/banking-v2.png",
+    demoPdfUrl: "/demo-banking.pdf",
     accent: "from-sky-500/15 to-sky-600/5",
     isSample: true,
     topics: [
@@ -77,6 +78,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     priceLabel: "₹49",
     priceNote: "Digital download (PDF, ~170 pages)",
     coverImage: "/covers/railway.png",
+    demoPdfUrl: "/demo-railway.pdf",
     accent: "from-cyan-500/15 to-cyan-600/5",
     isSample: true,
     topics: [
@@ -97,6 +99,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     priceLabel: "₹29",
     priceNote: "Digital download (PDF, ~120 pages)",
     coverImage: "/covers/gk-v2.png",
+    demoPdfUrl: "/demo-gk.pdf",
     accent: "from-indigo-500/15 to-indigo-600/5",
     isSample: true,
     topics: [
@@ -117,6 +120,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     priceLabel: "₹29",
     priceNote: "Digital download (PDF, ~150 pages)",
     coverImage: "/covers/quant.png",
+    demoPdfUrl: "/demo-quant.pdf",
     accent: "from-blue-600/15 to-indigo-600/5",
     isSample: true,
     topics: [
@@ -138,6 +142,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     priceLabel: "₹29",
     priceNote: "Digital download (PDF, ~130 pages)",
     coverImage: "/covers/english.png",
+    demoPdfUrl: "/demo-english.pdf",
     accent: "from-blue-500/15 to-cyan-600/5",
     isSample: true,
     topics: [
@@ -159,6 +164,7 @@ export const PRODUCTS: CatalogItemDisplay[] = [
     priceLabel: "₹99",
     priceNote: "Digital download (PDF, ~250 pages)",
     coverImage: "/covers/upsc-v2.png",
+    demoPdfUrl: "/demo-upsc.pdf",
     accent: "from-blue-700/15 to-indigo-700/5",
     isSample: true,
     topics: [
@@ -219,7 +225,20 @@ export const NAV_ITEMS: { id: PageId; label: string }[] = [
   { id: "contact", label: "Contact" },
 ];
 
-export type PageId = "home" | "products" | "membership" | "about" | "contact";
+export type PageId =
+  | "home"
+  | "products"
+  | "membership"
+  | "about"
+  | "contact"
+  | "product-detail";
+
+/**
+ * Helper: find a product (display catalog) by id. Returns null if not found.
+ */
+export function findProduct(id: string): CatalogItemDisplay | null {
+  return PRODUCTS.find((p) => p.id === id) ?? null;
+}
 
 export type ContactSubmission = {
   name: string;

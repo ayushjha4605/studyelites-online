@@ -47,7 +47,12 @@ export function ProductsView({
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {MORE_PRODUCTS.map((p) => (
-            <ProductCard key={p.id} item={p} ctaLabel="Buy Now" />
+            <ProductCard
+              key={p.id}
+              item={p}
+              ctaLabel="Buy Now"
+              onViewDetails={() => onNavigate("product-detail", p.id)}
+            />
           ))}
         </div>
 
